@@ -21,7 +21,7 @@
 	<label class="ld-label">
 		Polling Time (Seconds)
 	</label>
-	<input class="ld-time-input" type="number" value="2" id="pollingTime"/>
+	<input class="ld-time-input" type="number" value="100" id="pollingTime"/>
 </div>
 <div class="ld-row">
 	<label class="ld-label">
@@ -32,7 +32,7 @@
 
 <script>
 var defaultData = './alldata.csv';
-var urlInput = defaultData; //document.getElementById('fetchURL');
+var urlInput = document.getElementById('fetchURL');
 var pollingCheckbox = document.getElementById('enablePolling');
 var pollingInput = document.getElementById('pollingTime');
 
