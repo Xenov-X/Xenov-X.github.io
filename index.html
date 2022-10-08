@@ -14,64 +14,81 @@
 </figure>
 
 <script>
+
+function csvToArray(str, delimiter = ",") {
+  // slice from start of text to the first \n index
+  // use split to create an array from string by delimiter
+  const headers = str.slice(0, str.indexOf("\n")).split(delimiter);
+
+  // slice from \n index + 1 to the end of the text
+  // use split to create an array of each csv value row
+  const rows = str.slice(str.indexOf("\n") + 1).split("\n");
+
+  // Map the rows
+  // split values from each row into an array
+  // use headers.reduce to create an object
+  // object properties derived from headers:values
+  // the object passed as an element of the array
+  const arr = rows.map(function (row) {
+    const values = row.split(delimiter);
+    const el = headers.reduce(function (object, header, index) {
+      object[header] = values[index];
+      return object;
+    }, {});
+    return el;
+  });
+
+  // return the array
+  return arr;
+}
+
+var request = new XMLHttpRequest();
+request.open('GET', 'https://xenov-x.github.io/Speedtest_Log.csv', true);
+request.responseType = 'blob';
+request.onload = function() {
+    var reader = new FileReader();
+    reader.readAsDataURL(request.response);
+    reader.onload =  function(e){
+        
+	var base64 = e.target.result.replace('data:text/csv;base64,', '');
+	var decodeddata = atob(base64);
+	const data = csvToArray(decodeddata);
+	console.log(data);
+
+
+data.reverse();
+data.forEach(function(point) {
+console.log(point);
+  point[0] = new Date(point[0]).getTime();
+});
+
 Highcharts.chart('container', {
 
-    title: {
-        text: 'Speedlog'
-    },
-
-    subtitle: {
-        text: 'Source: Xenov'
-    },
-
-    yAxis: {
-        title: {
-            text: 'Connection Speed'
-        }
-    },
-
-    xAxis: {
-        accessibility: {
-            rangeDescription: 'Range: 2010 to 2020'
-        }
-    },
-
-    legend: {
-        layout: 'vertical',
-        align: 'right',
-        verticalAlign: 'middle'
-    },
-
-    plotOptions: {
-        series: {
-            label: {
-                connectorAllowed: false
-            },
-            pointStart: 2010
-        }
-    },
-
-  data: {
-    csvURL: './Speedtest_Log.csv',
-    beforeParse: function(csv) {
-      return csv.replace(/\n\n/g, '\n');
-    }
+  chart: {
+    type: 'line'
   },
+  title: {
+    text: 'My chart'
+  },
+  xAxis: {
+    type: 'datetime',
 
-    responsive: {
-        rules: [{
-            condition: {
-                maxWidth: 500
-            },
-            chartOptions: {
-                legend: {
-                    layout: 'horizontal',
-                    align: 'center',
-                    verticalAlign: 'bottom'
-                }
-            }
-        }]
-    }
+  },
+  series: [{
+      name: 'Support',
+      color: 'green',
+      data: data
+    },
 
+  ]
 });
+	
+    };
+};
+request.send();
+
+
+
+
+
 </script>
