@@ -26,6 +26,9 @@ Highcharts.chart('container', {
 
   data: {
     csvURL: './Speedtest_Log.csv',
+        complete: function() {
+            console.log(this.csvURL)
+        },
     beforeParse: function(csv) {
       return csv.replace(/\n\n/g, '\n');
     }
