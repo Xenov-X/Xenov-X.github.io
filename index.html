@@ -5,12 +5,10 @@
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
 <figure class="highcharts-figure">
-    <div id="container"></div>
-    <p class="highcharts-description">
-		Datasets formatted in CSV or JSON can be fetched remotely using the
-		<code>data</code> module. This chart shows how a chart can also be
-		configured to poll against the remote source.
+    <p class="Description">
+		Basic home networking connectivity tracker, pulling data from speedtest-CLI.
     </p>
+    <div id="container"></div>
 </figure>
 
 <div class="ld-row">
@@ -44,7 +42,7 @@ function createChart() {
             type: 'spline'
         },
         title: {
-            text: 'Live Data'
+            text: 'Home Networking Uptime'
         },
         accessibility: {
             announceNewData: {
