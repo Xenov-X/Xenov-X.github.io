@@ -1,5 +1,5 @@
 <script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/series-label.js"></script>
+<script src="https://code.highcharts.com/modules/data.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
@@ -7,88 +7,65 @@
 <figure class="highcharts-figure">
     <div id="container"></div>
     <p class="highcharts-description">
-        Basic line chart showing trends in a dataset. This chart includes the
-        <code>series-label</code> module, which adds a label to each line for
-        enhanced readability.
+		Datasets formatted in CSV or JSON can be fetched remotely using the
+		<code>data</code> module. This chart shows how a chart can also be
+		configured to poll against the remote source.
     </p>
 </figure>
 
+<div class="ld-row">
+	<label class="ld-label">
+		Enable Polling
+	</label>
+	<input type="checkbox" checked="checked" id="enablePolling"/>
+</div>
+
+
 <script>
+var defaultData = './alldata.csv';
+var urlInput = defaultData //document.getElementById('fetchURL');
+var pollingCheckbox = document.getElementById('enablePolling');
+var pollingInput = 100 //document.getElementById('pollingTime');
 
-function csvToArray(str, delimiter = ",") {
-  // slice from start of text to the first \n index
-  // use split to create an array from string by delimiter
-  const headers = str.slice(0, str.indexOf("\n")).split(delimiter);
+function createChart() {
+    Highcharts.chart('container', {
+        chart: {
+            type: 'spline'
+        },
+        title: {
+            text: 'Live Data'
+        },
+        accessibility: {
+            announceNewData: {
+                enabled: true,
+                minAnnounceInterval: 15000,
+                announcementFormatter: function (allSeries, newSeries, newPoint) {
+                    if (newPoint) {
+                        return 'New point added. Value: ' + newPoint.y;
+                    }
+                    return false;
+                }
+            }
+        },
+        data: {
+            csvURL: urlInput.value,
+            enablePolling: pollingCheckbox.checked === true,
+            dataRefreshRate: parseInt(pollingInput.value, 10)
+        }
+    });
 
-  // slice from \n index + 1 to the end of the text
-  // use split to create an array of each csv value row
-  const rows = str.slice(str.indexOf("\n") + 1).split("\n");
-
-  // Map the rows
-  // split values from each row into an array
-  // use headers.reduce to create an object
-  // object properties derived from headers:values
-  // the object passed as an element of the array
-  const arr = rows.map(function (row) {
-    const values = row.split(delimiter);
-    const el = headers.reduce(function (object, header, index) {
-      object[header] = values[index];
-      return object;
-    }, {});
-    return el;
-  });
-
-  // return the array
-  return arr;
+    if (pollingInput.value < 1 || !pollingInput.value) {
+        pollingInput.value = 1;
+    }
 }
 
-var request = new XMLHttpRequest();
-request.open('GET', 'https://xenov-x.github.io/Speedtest_Log.csv', true);
-request.responseType = 'blob';
-request.onload = function() {
-    var reader = new FileReader();
-    reader.readAsDataURL(request.response);
-    reader.onload =  function(e){
-        
-	var base64 = e.target.result.replace('data:text/csv;base64,', '');
-	var decodeddata = atob(base64);
-	const data = csvToArray(decodeddata);
-	console.log(data);
+urlInput.value = defaultData;
 
+// We recreate instead of using chart update to make sure the loaded CSV
+// and such is completely gone.
+pollingCheckbox.onchange = urlInput.onchange = pollingInput.onchange = createChart;
 
-data.reverse();
-data.forEach(function(point) {
-console.log(point);
-  point[0] = new Date(point[0]).getTime();
-});
-
-Highcharts.chart('container', {
-
-  chart: {
-    type: 'line'
-  },
-  title: {
-    text: 'My chart'
-  },
-  xAxis: {
-    type: 'datetime',
-
-  },
-  series: [{
-      name: 'Support',
-      color: 'green',
-      data: data
-    },
-
-  ]
-});
-	
-    };
-};
-request.send();
-
-
-
-
+// Create the chart
+createChart();
 
 </script>
