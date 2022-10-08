@@ -34,9 +34,9 @@
 
 <script>
 var defaultData = './alldata.csv';
-var urlInput = document.getElementById('fetchURL');
+var urlInput = defaultData; //document.getElementById('fetchURL');
 var pollingCheckbox = document.getElementById('enablePolling');
-var pollingInput = document.getElementById('pollingTime');
+var pollingInput = 100; //document.getElementById('pollingTime');
 
 function createChart() {
     Highcharts.chart('container', {
