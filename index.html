@@ -19,13 +19,24 @@
 	</label>
 	<input type="checkbox" checked="checked" id="enablePolling"/>
 </div>
-
+<div class="ld-row">
+	<label class="ld-label">
+		Polling Time (Seconds)
+	</label>
+	<input class="ld-time-input" type="number" value="2" id="pollingTime"/>
+</div>
+<div class="ld-row">
+	<label class="ld-label">
+		CSV URL
+	</label>
+	<input class="ld-url-input" type="text" id="fetchURL"/>
+</div>
 
 <script>
 var defaultData = './alldata.csv';
-var urlInput = defaultData //document.getElementById('fetchURL');
+var urlInput = document.getElementById('fetchURL');
 var pollingCheckbox = document.getElementById('enablePolling');
-var pollingInput = 100 //document.getElementById('pollingTime');
+var pollingInput = document.getElementById('pollingTime');
 
 function createChart() {
     Highcharts.chart('container', {
