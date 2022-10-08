@@ -1,0 +1,112 @@
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/data.js"></script>
+<script src="https://code.highcharts.com/modules/series-label.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+<figure class="highcharts-figure">
+    <div id="container"></div>
+    <p class="highcharts-description">
+        Chart showing data loaded dynamically. The individual data points can
+        be clicked to display more information.
+    </p>
+</figure>
+
+<script>
+
+
+Highcharts.chart('container', {
+
+  chart: {
+    scrollablePlotArea: {
+      minWidth: 700
+    }
+  },
+
+  data: {
+    csvURL: './Speedtest_Log.csv',
+    beforeParse: function(csv) {
+      return csv.replace(/\n\n/g, '\n');
+    }
+  },
+
+  title: {
+    text: 'Daily sessions at www.highcharts.com'
+  },
+
+  subtitle: {
+    text: 'Source: Google Analytics'
+  },
+
+  xAxis: {
+    tickInterval: 7 * 24 * 3600 * 1000, // one week
+    tickWidth: 0,
+    gridLineWidth: 1,
+    labels: {
+      align: 'left',
+      x: 3,
+      y: -3
+    }
+  },
+
+  yAxis: [{ // left y axis
+    title: {
+      text: null
+    },
+    labels: {
+      align: 'left',
+      x: 3,
+      y: 16,
+      format: '{value:.,0f}'
+    },
+    showFirstLabel: false
+  }, { // right y axis
+    linkedTo: 0,
+    gridLineWidth: 0,
+    opposite: true,
+    title: {
+      text: null
+    },
+    labels: {
+      align: 'right',
+      x: -3,
+      y: 16,
+      format: '{value:.,0f}'
+    },
+    showFirstLabel: false
+  }],
+
+  legend: {
+    align: 'left',
+    verticalAlign: 'top',
+    borderWidth: 0
+  },
+
+  tooltip: {
+    shared: true,
+    crosshairs: true
+  },
+
+  plotOptions: {
+    series: {
+      cursor: 'pointer',
+      className: 'popup-on-click',
+      marker: {
+        lineWidth: 1
+      }
+    }
+  },
+
+  series: [{
+    name: 'All sessions',
+    lineWidth: 4,
+    marker: {
+      radius: 4
+    }
+  }, {
+    name: 'New users'
+  }]
+});
+
+</script>
