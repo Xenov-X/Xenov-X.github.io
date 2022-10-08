@@ -1,1 +1,27 @@
-Hello World
+<html>
+<head>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<script src="https://code.highcharts.com/modules/data.js"></script>
+</head>
+<body><div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div></body>
+<script>Highcharts.chart('container', {
+    chart: {
+        type: 'spline'
+    },
+    title: {
+        text: 'Live Data (CSV)'
+    },
+
+    subtitle: {
+        text: 'Data input from a remote CSV file'
+    },
+
+    data: {
+        csvURL: window.location.origin + './Speedtest_Log.csv',
+    }
+});</script>
+</html>
