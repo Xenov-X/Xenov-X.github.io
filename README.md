@@ -1,4 +1,4 @@
-<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
+﻿<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 <a name="readme-top"></a>
 <!--
 *** Thanks for checking out the Best-README-Template. If you have a suggestion
@@ -92,8 +92,8 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 
 ### Built With
 
-* [![PowerShell][PowerShell-exe][PowerShell-url]
-* [![Highcharts][Highcharts.js][Highcharts-url]
+* [![PowerShell][PowerShell-exe]][PowerShell-url]
+* [![Highcharts][Highcharts.js]][Highcharts-url]
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
