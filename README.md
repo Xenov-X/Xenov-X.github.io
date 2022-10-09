@@ -41,7 +41,7 @@
     <a href="https://github.com/Xenov-X/Xenov-X.github.io"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/Xenov-X/Xenov-X.github.io">View Demo</a>
+    <a href="https://speed.xenov.co.uk">View Demo</a>
     ·
     <a href="https://github.com/Xenov-X/Xenov-X.github.io/issues">Report Bug</a>
     ·
@@ -192,7 +192,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Xenov - [@twitter_handle](https://twitter.com/_Xenov)
+Xenov - [@_Xenov](https://twitter.com/_Xenov)
 
 Project Link: [https://github.com/Xenov-X/Xenov-X.github.io](https://github.com/Xenov-X/Xenov-X.github.io)
 
