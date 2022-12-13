@@ -1,6 +1,6 @@
  echo "Running speedtest"
 
- $Speedtest = (.\speedtest.exe -f csv --output-header| ConvertFrom-Csv | ForEach-Object {
+ $Speedtest = (.\speedtest.exe -f csv --output-header --accept-gdpr| ConvertFrom-Csv | ForEach-Object {
     $_.download = $_.download/125000
     $_.upload = $_.upload/125000
     
